@@ -13,7 +13,7 @@ class Array {
   Array() : _size(0) { _arr = new T[0]; }
   Array(unsigned int n) : _size(n) { _arr = new T[n]; }
   ~Array() { delete[] _arr; }
-  Array(const Array& other) {
+  Array(const Array& other) : _size(other._size) {
     _arr = new T[_size];
     for (unsigned int i = 0; i < _size; i++) {
       _arr[i] = other._arr[i];
@@ -30,13 +30,13 @@ class Array {
     }
     return *this;
   }
-  T& operator[](unsigned int index) {
+  T& operator[](const unsigned int index) const {
     if (index < 0 || _size <= index) {
       throw std::out_of_range("Index out of range");
     }
     return _arr[index];
   }
 
-  unsigned int getSize() { return _size; }
+  unsigned int getSize() const { return _size; }
 };
 #endif  // ARRAY_HPP

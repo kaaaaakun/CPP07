@@ -17,14 +17,24 @@ int defaultTest(int ac, char** av) {
   {
     Array<int> tmp = numbers;
     Array<int> test(tmp);
+    int i = 0;
+    for (; i < MAX_VAL; i++) {
+      if (mirror[i] != test[i]) {
+        std::cerr << "didn't save the same value!!" << std::endl;
+        return 1;
+      }
+    }
+    if (i == MAX_VAL) std::cout << "OK\n";
   }
 
-  for (int i = 0; i < MAX_VAL; i++) {
+  int i = 0;
+  for (; i < MAX_VAL; i++) {
     if (mirror[i] != numbers[i]) {
       std::cerr << "didn't save the same value!!" << std::endl;
       return 1;
     }
   }
+  if (i == MAX_VAL) std::cout << "OK\n";
   try {
     numbers[-2] = 0;
   } catch (const std::exception& e) {
@@ -39,21 +49,27 @@ int defaultTest(int ac, char** av) {
   for (int i = 0; i < MAX_VAL; i++) {
     numbers[i] = rand();
   }
-  delete[] mirror;  //
+  delete[] mirror;
   return 0;
   (void)av;
   (void)ac;
 }
 
 void myTest(int ac, char** av) {
-  Array<int> arr(5);
-  for (unsigned int i = 0; i < arr.getSize(); i++) {
-    arr[i] = i;
-    std::cout << arr[i] << std::endl;
-  }
-  for (unsigned int i = 0; i < arr.getSize(); i++) {
-    arr[i] = arr[i] + 1;
-    std::cout << arr[i] << std::endl;
+  try {
+    Array<int> arr(5);
+    for (unsigned int i = 0; i < arr.getSize(); i++) {
+      arr[i] = i;
+      std::cout << arr[i] << std::endl;
+    }
+    std::cout << "---addcount" << std::endl;
+    for (unsigned int i = 0; i < arr.getSize(); i++) {
+      arr[i] = arr[i] + 1;
+      std::cout << arr[i] << std::endl;
+    }
+    std::cout << arr[10] << std::endl;
+  } catch (const std::exception& e) {
+    std::cerr << e.what() << std::endl;
   }
   (void)ac;
   (void)av;
@@ -61,7 +77,9 @@ void myTest(int ac, char** av) {
 
 int main(int argc, char** argv) {
   myTest(argc, argv);
-  return defaultTest(argc, argv);
+  defaultTest(argc, argv);
+  //  system("leaks -q main");
+  return 0;
 
   (void)argv;
   (void)argc;
