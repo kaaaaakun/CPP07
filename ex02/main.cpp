@@ -5,6 +5,7 @@
 
 #define MAX_VAL 750
 int defaultTest(int ac, char** av) {
+	std::cout << "-- default test --" << std::endl;
   Array<int> numbers(MAX_VAL);
   int* mirror = new int[MAX_VAL];
   srand(time(NULL));
@@ -56,6 +57,7 @@ int defaultTest(int ac, char** av) {
 }
 
 void myTest(int ac, char** av) {
+	std::cout << "-- my test --" << std::endl;
   try {
     Array<int> arr(5);
     for (unsigned int i = 0; i < arr.getSize(); i++) {
@@ -78,7 +80,7 @@ void myTest(int ac, char** av) {
 int main(int argc, char** argv) {
   myTest(argc, argv);
   defaultTest(argc, argv);
-  //  system("leaks -q main");
+//  system("leaks -q main");
   return 0;
 
   (void)argv;
